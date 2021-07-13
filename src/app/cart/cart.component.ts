@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  itemsInCart: any[] = [];
+  sumOfCart = 0;
+
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.itemsInCart = this.cartService.productsInCart;
+    this.calculateSumOfCart();
+  }
+
+  onEmptyCart() {
+    this.cartService.productsInCart = [];
+    this.itemsInCart = this.cartService.productsInCart;
+    this.calculateSumOfCart();
+  } 
+
+  onRemoveFromCart(item: any) {
+    let index = this.itemsInCart.indexOf(item);
+    this.cartService.productsInCart.splice(index, 1);
+    this.itemsInCart = this.cartService.productsInCart;
+    this.calculateSumOfCart();
+  }
+
+  calculateSumOfCart () {
+    this.sumOfCart = 0;
+    this.itemsInCart.forEach(itemInCart => {
+      this.sumOfCart += itemInCart.price
+    });
   }
 
 }

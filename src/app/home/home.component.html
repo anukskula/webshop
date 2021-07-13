@@ -2,6 +2,6 @@
     <img src="{{ item.imgSrc }}" alt="">
     <div class="item-title">{{ item.title }}</div><br>
     <span class="item-price"> {{ item.price }}</span><br><br>
-    <button class="add-to-cart-button">Lisa ostukorvi</button><br><br>
+    <button (click)="onAddToCart(item)" class="main-button">Lisa ostukorvi</button><br><br>
 </div>
 

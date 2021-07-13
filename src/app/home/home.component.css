@@ -11,17 +11,3 @@
     padding: 10px;
     border-radius: 10px 0 10px 10px;
 }
-
-.add-to-cart-button {
-    border: none;
-    padding: 10px;
-    background-color: cadetblue;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-.add-to-cart-button:hover {
-    background-color: rgb(52, 89, 90);
-    transition: 0.5s;
-}

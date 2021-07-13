@@ -2,3 +2,17 @@
 body {
 	margin: 0;
 }
+
+.main-button {
+    border: none;
+    padding: 10px;
+    background-color: cadetblue;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.main-button:hover {
+    background-color: rgb(52, 89, 90);
+    transition: 0.5s;
+}
