@@ -1,7 +1,19 @@
+<app-carousel></app-carousel>
+
+<div>Sorteeri:</div>
+<br>
+<button (click)="onSortByTitleAsc()">Tähestiku järgi kasvavalt</button>
+<button (click)="onSortByTitleDesc()">Tähestiku järgi kahanevalt</button>
+<button (click)="onSortByPriceAsc()">Hinna järgi kasvavalt</button>
+<button (click)="onSortByPriceDesc()">Hinna järgi kahanevalt</button>
+<br><br><br>
+
 <div class="item" *ngFor="let item of items">
-    <img src="{{ item.imgSrc }}" alt="">
-    <div class="item-title">{{ item.title }}</div><br>
-    <span class="item-price"> {{ item.price }}</span><br><br>
+    <div routerLink="toode/{{ item.title }}">
+        <img src="{{ item.imgSrc }}" alt="">
+    <div class="item-title">{{ item.title | shortenTitle }}</div><br>
+    <span class="item-price"> {{ item.price | itemPrice }}</span><br><br>
+    </div>
     <button (click)="onAddToCart(item)" class="main-button">Lisa ostukorvi</button><br><br>
 </div>
 

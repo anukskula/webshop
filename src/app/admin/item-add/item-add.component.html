@@ -1,1 +1,17 @@
 <button routerLink="/admin" class="main-button">Tagasi</button>
+
+<form (ngSubmit)="onSubmit(addItemForm)" #addItemForm="ngForm">
+    <label>Pilt</label><br>
+    <input ngModel name="imgSrc" type="text" placeholder="Eseme pilt" required><br>
+    <label>Nimetus</label><br>
+    <input ngModel name="title" type="text" placeholder="Eseme nimetus" required><br>
+    <label>Hind</label><br>
+    <input ngModel name="price" type="text" placeholder="Eseme hind" required><br>
+    <label>Kategooria</label><br>
+  <!-- <input ngModel name="category" type="text" placeholder="Eseme kategooria" required><br> -->
+    <select name="category" ngModel required>
+        <option disabled selected value="">Vali kategooria</option>
+        <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+    </select><br>
+    <button [disabled]="addItemForm.invalid">Lisa ese</button>
+</form>

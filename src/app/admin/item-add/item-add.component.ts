@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ItemService } from 'src/app/services/item.service';
+import { CategoryService } from '../category/category.service';
 
 @Component({
   selector: 'app-item-add',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-add.component.css']
 })
 export class ItemAddComponent implements OnInit {
+  categories: string[] = [];
 
-  constructor() { }
+  constructor(private itemService: ItemService,
+    private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.categories = this.categoryService.getCategories();
   }
 
+  onSubmit(form: NgForm) {
+    console.log(form);
+    console.log(form.value);
+    if (form.valid) {
+      this.itemService.addItem(form.value);
+    } 
+  }
 }
