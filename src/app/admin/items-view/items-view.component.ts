@@ -13,13 +13,28 @@ export class ItemsViewComponent implements OnInit {
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.items = this.itemService.getItems();
+    // this.items = this.itemService.getItems();
+    this.itemService.getItemsFromDatabase().subscribe((firebaseItems) => {
+      this.items = firebaseItems;
+      this.itemService.saveToServiceFromDatabase(firebaseItems);
+    });
   }
 
   onDeleteItem(item: Item) {
     let index = this.itemService.getItemIndex(item);
-    this.itemService.deleteItem(index);
-    this.items = this.itemService.getItems();
+    this.itemService.deleteItem(index).subscribe(() => {
+    // this.items = this.itemService.getItems();
+    this.itemService.getItemsFromDatabase().subscribe((firebaseItems) => {
+      this.items = firebaseItems;
+      this.itemService.saveToServiceFromDatabase(firebaseItems);
+      });
+    });
+  }
+
+  onSendItemsToDatabase() {
+    this.itemService.saveItemsToDatabase().subscribe(() => {
+      alert("lisatud");
+    });
   }
 
 }

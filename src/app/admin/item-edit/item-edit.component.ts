@@ -43,8 +43,9 @@ export class ItemEditComponent implements OnInit {
   onSubmit() {
     if (this.editItemForm.valid) {
       let itemIndex = this.itemService.getItemIndex(this.item);
-      this.itemService.editItem(itemIndex, this.editItemForm.value);
+      this.itemService.editItem(itemIndex, this.editItemForm.value).subscribe(() => {
       this.router.navigateByUrl("/admin/vaata-esemeid");
+      });
     }
   }
 

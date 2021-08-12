@@ -23,6 +23,7 @@ export class ItemAddComponent implements OnInit {
     console.log(form.value);
     if (form.valid) {
       this.itemService.addItem(form.value);
+      form.reset();
     } 
   }
 }
