@@ -23,6 +23,12 @@ import { CategoryComponent } from './admin/category/category.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './home/carousel/carousel.component';
 import { CarouselSettingsComponent } from './admin/carousel-settings/carousel-settings.component';
+import { ItemCardComponent } from './home/item-card/item-card.component';
+import { BackButtonComponent } from './admin/back-button/back-button.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { UniqueCategoryPipe } from './pipes/unique-category.pipe';
 
 
 @NgModule({
@@ -41,7 +47,13 @@ import { CarouselSettingsComponent } from './admin/carousel-settings/carousel-se
     ShortenTitlePipe,
     CategoryComponent,
     CarouselComponent,
-    CarouselSettingsComponent
+    CarouselSettingsComponent,
+    ItemCardComponent,
+    BackButtonComponent,
+    LoginComponent,
+    SignupComponent,
+    SpinnerComponent,
+    UniqueCategoryPipe
   ],
   imports: [
     BrowserModule,

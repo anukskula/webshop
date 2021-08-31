@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Item } from 'src/app/models/item.model';
 
 @Injectable({
@@ -6,6 +7,7 @@ import { Item } from 'src/app/models/item.model';
 })
 export class CartService {
   private productsInCart: Item[] = [];
+  cartChanged = new Subject();
 
   constructor() { }
 

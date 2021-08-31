@@ -27,8 +27,12 @@ private items: Item[] = [];
   } 
 
   addItem(item: Item): void {
-    this.items.push(item);
-    this.saveItemsToDatabase().subscribe();
+    this.getItemsFromDatabase().subscribe(firebaseItems => {
+      this.items = firebaseItems;
+      this.items.push(item);
+      this.saveItemsToDatabase().subscribe();
+    })
+
   }
 
   // getItems(): Item[] {

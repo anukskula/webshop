@@ -27,23 +27,34 @@ export class ItemEditComponent implements OnInit {
     let urlId = this.route.snapshot.paramMap.get("itemId");
     if (urlId) {
       this.id = urlId;
-      let itemFound = this.itemService.getItem(this.id);
+      this.itemService.getItemsFromDatabase().subscribe((firebaseItems)=> {
+        this.itemService.saveToServiceFromDatabase(firebaseItems);
+        let itemFound = this.itemService.getItem(this.id);
       if (itemFound) {
         this.item = itemFound;
       }
+      this.editItemForm = new FormGroup({
+        imgSrc: new FormControl(this.item.imgSrc),
+        title: new FormControl(this.item.title),
+        price: new FormControl(this.item.price),
+        category: new FormControl(this.item.category),
+        isActive: new FormControl(this.item.isActive)
+     });
+      })
     }
-    this.editItemForm = new FormGroup({
-      imgSrc: new FormControl(this.item.imgSrc),
-      title: new FormControl(this.item.title),
-      price: new FormControl(this.item.price),
-      category: new FormControl(this.item.category)
-   });
   }
 
   onSubmit() {
     if (this.editItemForm.valid) {
       let itemIndex = this.itemService.getItemIndex(this.item);
-      this.itemService.editItem(itemIndex, this.editItemForm.value).subscribe(() => {
+      let item = new Item(
+        this.editItemForm.value.imgSrc,
+        this.editItemForm.value.title,
+        this.editItemForm.value.price,
+        this.editItemForm.value.category,
+        this.editItemForm.value.isActive
+      )
+      this.itemService.editItem(itemIndex, item).subscribe(() => {
       this.router.navigateByUrl("/admin/vaata-esemeid");
       });
     }

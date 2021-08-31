@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CarouselImage } from '../models/carousel-image.model';
 
@@ -28,16 +29,37 @@ export class CarouselService {
       alt: "Random 4 slide"
     }]
 
-    interval = 5000;
-    wrap = true;
-    keyboard = true;
-    pauseOnHover = true;
+    carouselSettings = {
+      interval: 5000,
+      wrap: true,
+      keyboard: true,
+      pauseOnHover: true
+    }
 
-  constructor() { }
+    // interval = 5000;
+    // wrap = true;
+    // keyboard = true;
+    // pauseOnHover = true;
+
+    private firebaseUrl = "https://webshop-69e2e-default-rtdb.europe-west1.firebasedatabase.app/images.json";
+
+  constructor(private http: HttpClient) { }
+
+   saveImagesToDatabase() {
+     return this.http.put(this.firebaseUrl, this.images);
+   }
+
+   getImagesFromDatabase() {
+     return this.http.get<CarouselImage[]>(this.firebaseUrl);
+   }
+
+   saveToServiceFromDatabase(imagesFromDatabase: CarouselImage[]) {
+      this.images = imagesFromDatabase;
+   }
 
   getImages(): { url: string, header: string, description: string, alt: string }[] {
-    return this.images.slice();
-  }
+      return this.images.slice();
+    }
 
   addImage(image: CarouselImage) {
     this.images.push(image);
@@ -47,4 +69,5 @@ export class CarouselService {
     let index = this.images.indexOf(image);
     this.images.splice(index, 1);
   }
+
 }

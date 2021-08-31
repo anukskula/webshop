@@ -1,0 +1,9 @@
+.item-title {
+    font-size: 20px;
+}
+
+.item-price {
+    background-color: bisque;
+    padding: 10px;
+    border-radius: 10px 0 10px 10px;
+}

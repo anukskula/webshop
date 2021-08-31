@@ -2,12 +2,12 @@
     margin: 30px;
 }
 
-.item-title {
-    font-size: 20px;
+.active {
+    border: 1px solid green;
 }
 
-.item-price {
-    background-color: bisque;
-    padding: 10px;
-    border-radius: 10px 0 10px 10px;
+.inactive {
+    border: 1px solid red;
 }
+
+

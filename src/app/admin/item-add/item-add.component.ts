@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
 import { CategoryService } from '../category/category.service';
 
@@ -22,7 +23,13 @@ export class ItemAddComponent implements OnInit {
     console.log(form);
     console.log(form.value);
     if (form.valid) {
-      this.itemService.addItem(form.value);
+      let item = new Item(
+        form.value.imgSrc, 
+        form.value.title, 
+        form.value.price, 
+        form.value.category, 
+        true);
+      this.itemService.addItem(item);
       form.reset();
     } 
   }

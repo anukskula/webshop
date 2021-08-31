@@ -8,12 +8,15 @@
 <button (click)="onSortByPriceDesc()">Hinna järgi kahanevalt</button>
 <br><br><br>
 
-<div class="item" *ngFor="let item of items">
-    <div routerLink="toode/{{ item.title }}">
-        <img src="{{ item.imgSrc }}" alt="">
-    <div class="item-title">{{ item.title | shortenTitle }}</div><br>
-    <span class="item-price"> {{ item.price | itemPrice }}</span><br><br>
-    </div>
-    <button (click)="onAddToCart(item)" class="main-button">Lisa ostukorvi</button><br><br>
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<div *ngFor="let category of items | uniqueCategory">{{ category }}</div>
+
+<div [ngClass]="{
+    'active': itemShown.isActive && isLoggedIn,
+    'inactive': !itemShown.isActive && isLoggedIn}" 
+*ngFor="let itemShown of items">
+    <app-item-card *ngIf="isLoggedIn || (!isLoggedIn && itemShown.isActive)"
+    class="item" [item]="itemShown" [isLoggedIn]="isLoggedIn" (activeChangedEvent)="saveToDatabaseOnActiveChanged($event)"></app-item-card>
 </div>
 
