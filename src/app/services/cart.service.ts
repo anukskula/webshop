@@ -6,16 +6,22 @@ import { Item } from 'src/app/models/item.model';
   providedIn: 'root'
 })
 export class CartService {
-  private productsInCart: Item[] = [];
+  private productsInCart: {cartItem: Item, quantity: number}[] = [];
   cartChanged = new Subject();
 
   constructor() { }
 
   addToCart(item: Item): void {
-    this.productsInCart.push(item);
+    let cartItem = this.productsInCart.find(productInCart => productInCart.cartItem.title == item.title);
+    if (cartItem) {
+      // cartItem.quantity = cartItem.quantity + 1;
+      cartItem.quantity++;
+    } else {
+      this.productsInCart.push({cartItem: item, quantity: 1});
+    }
   }
 
-  getItemsFromCart(): Item[] {
+  getItemsFromCart(): {cartItem: Item, quantity: number}[] {
     return this.productsInCart.slice();
   }
 

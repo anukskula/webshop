@@ -9,7 +9,8 @@ import { CartService } from '../services/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  itemsInCart: Item[] = [];
+  itemsInCart: {cartItem: Item, quantity: number}[] = [];
+  itemsCount = 0;
   sumOfCart = 0;
 
   constructor(private cartService: CartService) { }
@@ -26,7 +27,7 @@ export class CartComponent implements OnInit {
     this.cartService.cartChanged.next();
   } 
 
-  onRemoveFromCart(item: Item) {
+  onRemoveFromCart(item: {cartItem: Item, quantity: number}) {
     let index = this.itemsInCart.indexOf(item);
     this.cartService.deleteOneFromCart(index);
     this.itemsInCart = this.cartService.getItemsFromCart();
@@ -36,8 +37,10 @@ export class CartComponent implements OnInit {
 
   calculateSumOfCart () {
     this.sumOfCart = 0;
+    this.itemsCount = 0;
     this.itemsInCart.forEach(itemInCart => {
-      this.sumOfCart += itemInCart.price
+      this.sumOfCart += itemInCart.cartItem.price * itemInCart.quantity;
+      this.itemsCount += itemInCart.quantity;
     });
   }
 

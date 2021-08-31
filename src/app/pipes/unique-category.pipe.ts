@@ -7,7 +7,8 @@ import { Item } from '../models/item.model';
 export class UniqueCategoryPipe implements PipeTransform {
 
   transform(items: Item[]): string[] {
-    return items.map(item => item.category).filter((category, index, categories) => categories.indexOf(category) == index);
+    return items.map(item => item.category)
+    .filter((category, index, categories) => categories.indexOf(category) == index);
   }
 
 }
