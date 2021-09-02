@@ -6,7 +6,7 @@ import { Item } from 'src/app/models/item.model';
   providedIn: 'root'
 })
 export class CartService {
-  private productsInCart: {cartItem: Item, quantity: number}[] = [];
+  private productsInCart: {cartItem: Item, quantity: number}[] = [{cartItem: {"imgSrc":"https://i.ebayimg.com/thumbs/images/g/OOYAAOSwZH5gPaUm/s-l225.webp","title":"KDEAM Classic Men Polarized Sunglasses Strengthen TAC Mirror Anti-Glare UV400 ","price":13.79,"category":"sunglasses", isActive: true}, quantity: 6}];
   cartChanged = new Subject();
 
   constructor() { }
@@ -25,7 +25,18 @@ export class CartService {
     return this.productsInCart.slice();
   }
 
-  deleteOneFromCart(index: number): void {
+  deleteOneFromCart(item: {cartItem: Item, quantity: number}): void {
+    let index = this.productsInCart.indexOf(item);
+    if (index != -1) {
+      if (this.productsInCart[index].quantity == 1) {
+        this.deleteItemFromCart(index);
+      } else {
+        this.productsInCart[index].quantity--;
+      }
+    }
+  }
+
+  deleteItemFromCart(index: number): void {
     this.productsInCart.splice(index, 1)
   }
 

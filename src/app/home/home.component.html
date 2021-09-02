@@ -1,9 +1,11 @@
 <app-carousel></app-carousel>
 
+<div class="filter-bar">
 <div>Sorteeri:</div>
 <br>
 <button (click)="onSortByTitle()">Tähestiku järgi</button>
 <button (click)="onSortByPrice()">Hinna järgi</button>
+</div>
 <br><br><br>
 
 <app-spinner *ngIf="isLoading"></app-spinner>
@@ -11,11 +13,16 @@
 <div (click)="onCategoryClick('all')">Kõik kategooriad</div>
 <div (click)="onCategoryClick(category)" *ngFor="let category of categories">{{ category.charAt(0).toUpperCase() + category.slice(1) }}</div>
 
-<div [ngClass]="{
+<div class="items-wrapper">
+    <div class="item"
+    [ngClass]="{
     'active': itemShown.isActive && isLoggedIn,
     'inactive': !itemShown.isActive && isLoggedIn}" 
-*ngFor="let itemShown of items">
-    <app-item-card *ngIf="isLoggedIn || (!isLoggedIn && itemShown.isActive)"
-    class="item" [item]="itemShown" [isLoggedIn]="isLoggedIn" (activeChangedEvent)="saveToDatabaseOnActiveChanged($event)"></app-item-card>
+    *ngFor="let itemShown of items">
+    <app-item-card 
+     [item]="itemShown" 
+     [isLoggedIn]="isLoggedIn" 
+     (activeChangedEvent)="saveToDatabaseOnActiveChanged($event)"
+     ></app-item-card>
 </div>
-
+</div>

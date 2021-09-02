@@ -28,12 +28,18 @@ export class HomeComponent implements OnInit {
     this.authService.loggedInChanged.subscribe(()=>{
       this.isLoggedIn = sessionStorage.getItem("userData") ? true : false;
     });
+    if (!this.isLoading) {
+      this.items = this.items.filter(item => item.isActive);
+    }
     // this.items = this.itemService.getItems();
     this.isLoading = true;
     this.itemService.getItemsFromDatabase().subscribe((firebaseItems) => {
       this.isLoading = false;
       this.items = firebaseItems;
       this.itemService.saveToServiceFromDatabase(firebaseItems);
+      if (!this.isLoading) {
+        this.items = this.items.filter(item => item.isActive);
+      }
       this.categories = this.uniqueCategoryPipe.transform(this.items);
     });
   }
